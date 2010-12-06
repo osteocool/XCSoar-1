@@ -1,0 +1,65 @@
+Bottom: 5978df6ae893e878e2824d179f770b57f4109432
+Top:    673335a0595c9ad3643c13ca227759e221d455be
+Author: Helmut J. Rohs <helmut.j.rohs@web.de>
+Date:   2010-12-06 13:37:36 +0100
+
+Removed GetTypeDescription.
+
+
+---
+
+diff --git a/src/Dialogs/dlgConfigInfoboxes.cpp b/src/Dialogs/dlgConfigInfoboxes.cpp
+index 5972459..1e436ef 100644
+--- a/src/Dialogs/dlgConfigInfoboxes.cpp
++++ b/src/Dialogs/dlgConfigInfoboxes.cpp
+@@ -126,7 +126,7 @@ SetInfoBoxSelector(unsigned item)
+   DataFieldEnum* dfe;
+   dfe = (DataFieldEnum*)wp->GetDataField();
+   for (unsigned i = 0; i < InfoBoxFactory::NUM_TYPES; i++)
+-    dfe->addEnumText(InfoBoxManager::GetTypeDescription(i));
++    dfe->addEnumText(gettext(InfoBoxFactory::GetName(i)));
+ 
+   dfe->Sort(0);
+ 
+diff --git a/src/InfoBoxes/InfoBoxManager.cpp b/src/InfoBoxes/InfoBoxManager.cpp
+index b046ee1..865b89b 100644
+--- a/src/InfoBoxes/InfoBoxManager.cpp
++++ b/src/InfoBoxes/InfoBoxManager.cpp
+@@ -416,12 +416,6 @@ InfoBoxManager::ProcessTimer()
+   InfoBoxDrawIfDirty();
+ }
+ 
+-const TCHAR *
+-InfoBoxManager::GetTypeDescription(unsigned i)
+-{
+-  return gettext(InfoBoxFactory::GetName(i));
+-}
+-
+ void
+ InfoBoxManager::Paint()
+ {
+@@ -547,7 +541,7 @@ InfoBoxManager::SetupFocused()
+ 
+   DataFieldEnum *dfe = new DataFieldEnum(NULL);
+   for (unsigned i = 0; i < InfoBoxFactory::NUM_TYPES; i++)
+-    dfe->addEnumText(GetTypeDescription(i));
++    dfe->addEnumText(gettext(InfoBoxFactory::GetName(i)));
+   dfe->Sort(0);
+   dfe->Set(old_type);
+ 
+diff --git a/src/InfoBoxes/InfoBoxManager.hpp b/src/InfoBoxes/InfoBoxManager.hpp
+index fa6ce83..549b64e 100644
+--- a/src/InfoBoxes/InfoBoxManager.hpp
++++ b/src/InfoBoxes/InfoBoxManager.hpp
+@@ -50,12 +50,6 @@ namespace InfoBoxManager
+   void Event_Select(int i);
+   void Event_Change(int i);
+ 
+-  /**
+-   * Get a localized human readable description to the box content.
+-   * @param i The index to the info box according to InfoBoxFactory
+-   */
+-  const TCHAR *GetTypeDescription(unsigned i);
+-
+   void ProcessKey(InfoBoxContent::InfoBoxKeyCodes keycode);
+   bool Click(InfoBoxWindow &ib);

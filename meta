@@ -1,6 +1,7 @@
 Version: 1
-Previous: a5664a89975060f52d15fd870ce20e1326313c7b
-Head: 3b9d01f5965e8c3adae7ac0e7ad736945264893c
+Previous: e99fbe1bccbfee88bfb52bb987e337017c78f7fa
+Head: e01b3d82d233ef8abafbc2579c0093a30eeafc7b
 Applied:
+  removed-gettypedescription: e01b3d82d233ef8abafbc2579c0093a30eeafc7b
 Unapplied:
 Hidden:
